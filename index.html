@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>프로덕트 디자이너를 위한 AI 프로토타이핑 가이드</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="AI Prototyping Guide home">
+        <span class="brand-mark" aria-hidden="true">AP</span>
+        <span>AI 프로토타이핑 가이드</span>
+      </a>
+      <nav aria-label="Guide sections">
+        <a href="#tools">도구</a>
+        <a href="#setup">셋업</a>
+        <a href="#workflow">워크플로우</a>
+        <a href="#prompts">프롬프트</a>
+        <a href="#skills">SKILLS.md</a>
+        <a href="#github">GitHub</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">프로덕트 디자이너를 위한 가이드</p>
+          <h1>디자인 시스템으로 더 정확한 AI 프로토타입 만들기</h1>
+          <p>
+            Codex, Cursor, Claude, ChatGPT, Gemini, Spline, Omma, Figma MCP,
+            디자인 토큰, AI 스킬을 활용해 빠르게 작동하는 프로토타입을 만드는 방법입니다.
+          </p>
+        </div>
+
+        <div class="prototype-preview" aria-label="Prototype workflow preview">
+          <div class="preview-topbar">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="preview-grid">
+            <div class="preview-panel preview-figma">
+              <span>Figma</span>
+              <strong>토큰 + 프레임</strong>
+              <small>컬러, 타이포, 간격</small>
+            </div>
+            <div class="preview-arrow" aria-hidden="true">→</div>
+            <div class="preview-panel preview-ai">
+              <span>AI 도구</span>
+              <strong>Codex / Cursor</strong>
+              <small>생성, 수정, 테스트</small>
+            </div>
+            <div class="preview-arrow" aria-hidden="true">→</div>
+            <div class="preview-panel preview-browser">
+              <span>브라우저</span>
+              <strong>클릭 가능한 프로토타입</strong>
+              <small>사용자와 리뷰</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tools" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">01</p>
+          <h2>AI 도구를 역할별로 사용하기</h2>
+          <p>도구를 목적에 맞게 고르세요. Figma는 기준 디자인, AI는 제작 도구, 브라우저는 실제 작동 여부를 확인하는 공간입니다.</p>
+        </div>
+
+        <div class="tool-groups">
+          <article>
+            <p class="group-label">프로토타입 제작</p>
+            <h3>Codex, Cursor</h3>
+            <p>AI가 파일을 만들고, 코드를 수정하고, 앱을 실행하고, 시각적 오류나 인터랙션 문제를 고치게 할 때 사용합니다.</p>
+          </article>
+          <article>
+            <p class="group-label">경험 설계와 사고 정리</p>
+            <h3>Claude, ChatGPT, Gemini</h3>
+            <p>플로우, 제품 로직, 엣지 케이스, UX 문구, 리서치, 크리틱, 더 좋은 프롬프트를 정리할 때 사용합니다.</p>
+          </article>
+          <article>
+            <p class="group-label">인터랙티브 3D 디자인 프로토타이핑</p>
+            <h3>Spline, Omma</h3>
+            <p>Spline과 Omma는 3D 씬, 모션, 공간형 인터페이스, 제품 오브젝트, 몰입형 경험을 빠르게 탐색할 때 함께 사용할 수 있습니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="concepts" class="section split">
+        <div class="section-heading">
+          <p class="eyebrow">02</p>
+          <h2>알아두면 좋은 기본 개념</h2>
+          <p>AI에게 작동하는 프로토타입을 만들게 할 때 디자이너가 자주 마주치는 개념입니다.</p>
+        </div>
+
+        <div class="definition-list">
+          <div><strong>Vite</strong><span>React 프로토타입을 브라우저에서 빠르게 미리 볼 수 있게 해주는 가벼운 앱 시작 도구입니다.</span></div>
+          <div><strong>npm</strong><span>JavaScript 프로젝트에 필요한 패키지를 설치하고 실행하는 도구입니다. 디자이너는 보통 간단한 명령어로만 사용합니다.</span></div>
+          <div><strong>npm run dev</strong><span>로컬 미리보기 서버를 실행하는 명령어입니다. 보통 <code>http://localhost:5173</code> 같은 주소가 열립니다.</span></div>
+          <div><strong>Root folder</strong><span>프로젝트의 가장 상위 폴더입니다. AI는 이 폴더를 기준으로 파일, 에셋, 토큰, 지시사항을 이해합니다.</span></div>
+          <div><strong>Design tokens</strong><span>AI가 임의로 색상이나 간격을 만들지 않고 재사용해야 하는 컬러, 타이포, 간격, 그림자 값입니다.</span></div>
+          <div><strong>SKILLS.md / SKILL.md</strong><span>AI에게 우리 팀의 프로토타입 제작 기준과 품질 기준을 알려주는 짧은 지시문 파일입니다.</span></div>
+        </div>
+      </section>
+
+      <section id="setup" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">03</p>
+          <h2>AI 프로토타이핑 시작하기</h2>
+          <p>엔지니어가 되지 않아도 시작할 수 있도록, 준비 과정을 단순하게 나눈 흐름입니다.</p>
+        </div>
+
+        <div class="setup-board">
+          <article>
+            <span>1</span>
+            <h3>설치하기</h3>
+            <p>제작에는 Codex나 Cursor를 사용합니다. 프로토타입을 로컬에서 실행하려면 Node.js도 필요합니다.</p>
+          </article>
+          <article>
+            <span>2</span>
+            <h3>자료 모으기</h3>
+            <p>Figma 링크, 스크린샷, 디자인 토큰, 샘플 콘텐츠, 제품 메모를 하나의 프로젝트 폴더에 모읍니다.</p>
+          </article>
+          <article>
+            <span>3</span>
+            <h3>요청하기</h3>
+            <p>목표, 선택한 Figma 프레임, 필요한 인터랙션, 단순하게 유지할 부분을 AI에게 알려줍니다.</p>
+          </article>
+          <article>
+            <span>4</span>
+            <h3>실행하기</h3>
+            <p>AI에게 <code>npm run dev</code>로 앱을 실행하게 하고, 로컬 URL을 브라우저에서 엽니다.</p>
+          </article>
+          <article>
+            <span>5</span>
+            <h3>리뷰하기</h3>
+            <p>프로토타입을 직접 클릭해보고 Figma와 비교합니다. 간격, 타이포, 컬러, 상태, 모바일 레이아웃을 확인합니다.</p>
+          </article>
+          <article>
+            <span>6</span>
+            <h3>다듬기</h3>
+            <p>피드백은 한 번에 몰아서 주지 말고, 시각적 정확도, 인터랙션, 마감 순서로 나눠 요청합니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="figma-mcp" class="section split accent-band">
+        <div class="section-heading">
+          <p class="eyebrow">04</p>
+          <h2>Figma MCP 연결하기</h2>
+          <p>Figma MCP는 AI가 선택한 프레임, 컴포넌트, 변수, 스타일 같은 디자인 맥락을 더 정확히 읽게 도와줍니다.</p>
+        </div>
+
+        <div class="check-panel">
+          <ul>
+            <li>가능하면 원격 Figma MCP 서버를 사용합니다.</li>
+            <li>AI 도구의 MCP 설정에 <code>https://mcp.figma.com/mcp</code>를 추가합니다.</li>
+            <li>Figma 계정을 연결하고 접근 권한을 허용합니다.</li>
+            <li>Figma 파일을 열고 프로토타입으로 만들 프레임을 선택합니다.</li>
+            <li>선택한 프레임이나 레이어 링크를 복사합니다.</li>
+            <li>Codex, Cursor, Claude Code처럼 MCP를 지원하는 도구에 링크를 붙여넣습니다.</li>
+            <li>코드를 만들기 전에 AI에게 디자인을 먼저 분석해달라고 요청합니다.</li>
+          </ul>
+          <p class="note">
+            데스크톱 MCP는 Figma 데스크톱 앱을 통해 실행되며, 주로 특정 조직이나 엔터프라이즈 환경에서 사용합니다.
+          </p>
+        </div>
+      </section>
+
+      <section id="workflow" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">05</p>
+          <h2>AI 프로토타이핑 워크플로우</h2>
+          <p>Figma 디자인을 클릭 가능한 브라우저 프로토타입으로 옮길 때 반복해서 사용할 수 있는 흐름입니다.</p>
+        </div>
+
+        <div class="workflow-diagram" aria-label="AI prototyping workflow diagram">
+          <article>
+            <span>01</span>
+            <h3>준비</h3>
+            <p>Figma 프레임을 정리하고, 레이어 이름을 다듬고, 토큰과 핵심 플로우를 모읍니다.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>프롬프트</h3>
+            <p>Figma 링크, 목표, 제약사항, 토큰, 필요한 상태를 AI에게 전달합니다.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>제작</h3>
+            <p>AI가 단순한 컴포넌트와 현실적인 샘플 데이터로 첫 버전을 만들게 합니다.</p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>미리보기</h3>
+            <p>앱을 로컬에서 실행하고 데스크톱과 모바일 크기에서 브라우저로 확인합니다.</p>
+          </article>
+          <article>
+            <span>05</span>
+            <h3>수정</h3>
+            <p>시각적 정확도, 인터랙션 상태, 엣지 케이스, 반응형 레이아웃을 다듬습니다.</p>
+          </article>
+          <article>
+            <span>06</span>
+            <h3>공유</h3>
+            <p>클릭 가능한 부분, 정적인 부분, 가짜 데이터, 미완성 영역, 리뷰 가능한 범위를 기록합니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="structure" class="section split">
+        <div class="section-heading">
+          <p class="eyebrow">06</p>
+          <h2>추천 루트 폴더 구조</h2>
+          <p>루트 폴더는 프로토타입의 기준 위치입니다. 구조가 정리되어 있으면 AI가 무엇을 수정해야 하는지 더 잘 이해합니다.</p>
+        </div>
+
+        <div class="folder-panel">
+          <pre class="code-block"><code>prototype-name/
+  README.md
+  package.json
+  index.html
+  src/
+    App.jsx
+    main.jsx
+    styles.css
+    components/
+    data/
+    assets/
+  design/
+    figma-link.md
+    screenshots/
+    tokens.json
+  notes/
+    prompts.md
+    decisions.md
+    SKILLS.md</code></pre>
+          <div class="folder-notes">
+            <p><code>src/</code>는 실제 프로토타입 코드가 들어가는 곳입니다.</p>
+            <p><code>components/</code>는 버튼, 카드, 내비게이션처럼 재사용하는 UI 조각을 저장합니다.</p>
+            <p><code>data/</code>는 프로토타입을 현실적으로 보이게 하는 샘플 데이터를 저장합니다.</p>
+            <p><code>design/</code>은 Figma 링크, 스크린샷, 디자인 토큰을 저장합니다.</p>
+            <p><code>notes/</code>는 프롬프트, 결정사항, AI 스킬 지시문을 저장합니다.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="prompts" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">07</p>
+          <h2>정확한 프로토타입을 위한 프롬프트 가이드</h2>
+          <p>AI에게 목표, Figma 디자인 링크, 디자인 토큰, 제약사항, 기대 결과를 함께 전달하세요.</p>
+        </div>
+
+        <div class="prompt-grid">
+          <article>
+            <h3>시작 프롬프트</h3>
+            <pre><code>이 Figma 디자인을 기반으로 클릭 가능한 프로토타입을 만들어줘.
+
+Figma 디자인 링크:
+[여기에 Figma 프레임 또는 파일 링크 붙여넣기]
+
+목표:
+[사용자가 무엇을 할 수 있어야 하나요?]
+
+사용할 디자인 토큰:
+- Colors:
+- Typography:
+- Spacing:
+- Radius:
+- Shadows:
+
+요구사항:
+- Figma 레이아웃을 최대한 정확히 맞춰줘.
+- 재사용 가능한 컴포넌트를 사용해줘.
+- 반응형으로 만들어줘.
+- 현실적인 샘플 데이터를 사용해줘.
+- 코드는 쉽게 수정할 수 있게 단순하게 유지해줘.</code></pre>
+          </article>
+
+          <article>
+            <h3>수정 프롬프트</h3>
+            <pre><code>Figma 디자인 링크:
+[여기에 Figma 프레임 또는 파일 링크 붙여넣기]
+
+현재 프로토타입을 Figma 디자인과 비교해줘.
+간격, 타이포그래피, 컬러, radius, 컴포넌트 상태,
+반응형 동작의 차이를 수정해줘. 구조는 단순하게 유지해줘.</code></pre>
+          </article>
+
+          <article>
+            <h3>인터랙션 프롬프트</h3>
+            <pre><code>이 플로우에 현실적인 인터랙션을 추가해줘:
+[플로우 설명]
+
+필요한 경우 hover, selected, loading, empty, error 상태를 포함해줘.
+필요하지 않은 화면은 추가하지 마.</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <section id="spline" class="section split accent-band">
+        <div class="section-heading">
+          <p class="eyebrow">08</p>
+          <h2>Spline 또는 Omma 3D 디자인 추가하기</h2>
+          <p>Spline과 Omma는 제품, 오브젝트, 공간, 모션을 3D로 설명하거나 인터랙티브하게 탐색할 때 유용합니다.</p>
+        </div>
+
+        <div class="check-panel">
+          <ul>
+            <li>Spline 또는 Omma에서 인터랙티브 3D 디자인을 준비합니다.</li>
+            <li>공유 가능한 임베드 URL이나 내보내기 파일을 준비합니다.</li>
+            <li>프로토타입에는 뷰어 패키지, iframe, 이미지, 영상, 3D 에셋 방식 중 적절한 형태로 넣습니다.</li>
+            <li>3D 영역은 반응형으로 유지하고 너무 무겁지 않게 관리합니다.</li>
+            <li>중요한 텍스트는 3D 씬 안에만 넣지 말고 HTML UI에도 제공하세요.</li>
+            <li>성능이 느린 기기를 위해 정적인 대체 이미지를 준비합니다.</li>
+          </ul>
+          <pre><code>이 3D 디자인을 프로토타입의 주요 인터랙티브 비주얼로 추가해줘.
+반응형으로 유지하고 대체 이미지를 포함해줘.
+3D 디자인 URL: [여기에 Spline 또는 Omma URL 붙여넣기]</code></pre>
+        </div>
+      </section>
+
+      <section id="skills" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">09</p>
+          <h2>AI 결과를 더 정확하게 만드는 SKILLS.md</h2>
+          <p>
+            SKILLS.md는 AI에게 우리 디자인 팀의 작업 방식, 품질 기준,
+            프로토타입 제작 규칙을 알려주는 지시문입니다.
+          </p>
+        </div>
+
+        <div class="skill-layout">
+          <article class="skill-card">
+            <h3>포함하면 좋은 내용</h3>
+            <ul>
+              <li>사용자와 프로토타입 목적</li>
+              <li>디자인 토큰 사용 규칙</li>
+              <li>컴포넌트 사용 규칙</li>
+              <li>반응형 레이아웃 기준</li>
+              <li>인터랙션과 모션 기준</li>
+              <li>접근성 기준</li>
+              <li>AI가 피해야 할 것</li>
+            </ul>
+          </article>
+
+          <article class="skill-card">
+            <h3>어디에 두면 좋을까?</h3>
+            <p>
+              프로토타입 메모 근처에 저장하세요. 예를 들면
+              <code>notes/SKILLS.md</code>처럼 둘 수 있습니다. 일부 AI 도구는
+              단수 파일명인 <code>SKILL.md</code>를 사용하므로, 사용하는 도구가
+              기대하는 파일명에 맞추면 됩니다.
+            </p>
+          </article>
+
+          <article class="skill-card wide">
+            <h3>간단한 SKILLS.md 템플릿</h3>
+            <pre><code># 프로덕트 디자이너를 위한 AI 프로토타이핑 스킬
+
+## 역할
+시니어 프로덕트 디자이너이자 프론트엔드 프로토타이퍼처럼 행동해줘.
+
+## 목표
+Figma 디자인을 기반으로 정확하고 클릭 가능한 프로토타입을 만들어줘.
+
+## 디자인 규칙
+- 제공된 디자인 토큰을 정확히 사용해줘.
+- 간격, 타이포그래피, 컬러, radius, 컴포넌트 상태를 맞춰줘.
+- 새 컴포넌트를 만들기 전에 기존 컴포넌트를 우선 사용해줘.
+- 데스크톱과 모바일 모두 반응형으로 만들어줘.
+
+## 인터랙션 규칙
+- 현실적인 hover, focus, selected, loading, empty, error 상태를 추가해줘.
+- 플로우는 단순하고 테스트 가능하게 유지해줘.
+- 필요하지 않은 화면은 새로 만들지 마.
+
+## 결과물 규칙
+- 코드는 쉽게 수정할 수 있게 유지해줘.
+- 현실적인 샘플 데이터를 사용해줘.
+- 클릭 가능한 것, 정적인 것, placeholder인 것을 설명해줘.
+- 큰 변경을 하기 전에는 가정을 먼저 알려줘.
+
+## 피해야 할 것
+- 토큰에 없는 임의의 컬러 사용.
+- 디자인에 없는 장식적인 UI 추가.
+- 프로토타입에 비해 과하게 복잡한 구조.</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <section id="github" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">10</p>
+          <h2>GitHub에 코드 올리기</h2>
+          <p>AI 프로토타이핑으로 만든 코드를 GitHub에 저장하고 공유하는 가장 기본적인 흐름입니다.</p>
+        </div>
+
+        <div class="github-guide">
+          <article class="wide">
+            <span class="guide-step">00</span>
+            <h3>먼저 알아야 할 것</h3>
+            <ul>
+              <li><strong>GitHub</strong>는 코드를 온라인에 저장하고 공유하는 서비스입니다.</li>
+              <li><strong>Repo</strong>는 GitHub 안에 있는 프로젝트 폴더입니다. Figma 파일 하나가 디자인의 기준이라면, repo는 코드의 기준입니다.</li>
+              <li><strong>로컬 프로젝트</strong>는 내 컴퓨터에 있는 프로토타입 폴더입니다. 예: <code>AI Prototyping Guide</code></li>
+              <li><strong>터미널</strong>은 명령어를 입력하는 앱입니다. Mac에서는 <code>Terminal</code>, Cursor에서는 하단의 <code>Terminal</code> 패널을 사용합니다.</li>
+              <li><strong>remote</strong>는 내 컴퓨터 폴더와 연결된 온라인 GitHub repo 주소입니다.</li>
+              <li><strong>origin</strong>은 remote에 붙이는 별명입니다. 보통 첫 GitHub repo를 <code>origin</code>이라고 부릅니다.</li>
+              <li><strong>main</strong>은 기본 브랜치 이름입니다. 브랜치는 작업 흐름의 줄기라고 생각하면 됩니다.</li>
+            </ul>
+          </article>
+
+          <article>
+            <span class="guide-step">01</span>
+            <h3>GitHub repo 생성</h3>
+            <p>이 단계는 브라우저에서 GitHub 웹사이트를 열고 진행합니다.</p>
+            <ol>
+              <li>GitHub에 로그인합니다.</li>
+              <li>오른쪽 위 <code>+</code> 버튼에서 <code>New repository</code>를 선택합니다.</li>
+              <li>Repository name을 입력합니다. 예: <code>ai-checkout-prototype</code></li>
+              <li>공개 범위를 선택합니다: <code>Private</code> 또는 <code>Public</code>.</li>
+              <li>이미 로컬에 코드가 있다면 README, gitignore, license는 일단 추가하지 않는 편이 쉽습니다.</li>
+              <li><code>Create repository</code>를 누릅니다.</li>
+              <li>생성 후 보이는 repo URL을 복사합니다. 예: <code>https://github.com/USERNAME/REPO-NAME.git</code></li>
+            </ol>
+          </article>
+
+          <article>
+            <span class="guide-step">02</span>
+            <h3>명령어를 어디에 입력할까?</h3>
+            <p>명령어는 반드시 프로토타입 프로젝트 폴더 안에서 입력해야 합니다.</p>
+            <ol>
+              <li>Codex나 Cursor에서 프로토타입 폴더를 엽니다.</li>
+              <li>터미널을 엽니다. Cursor는 보통 하단 패널의 <code>Terminal</code>입니다.</li>
+              <li>터미널 위치가 프로젝트 폴더인지 확인합니다.</li>
+            </ol>
+            <pre><code>pwd</code></pre>
+            <p class="note"><code>pwd</code>는 “지금 터미널이 어느 폴더를 보고 있는지” 확인하는 명령어입니다.</p>
+          </article>
+
+          <article>
+            <span class="guide-step">03</span>
+            <h3>로컬 프로젝트와 GitHub 연결</h3>
+            <p>이 명령어들은 터미널에 한 줄씩 입력합니다. <code>USERNAME</code>과 <code>REPO-NAME</code>은 본인의 GitHub 정보로 바꿉니다.</p>
+            <pre><code>git init
+git add .
+git commit -m "Initial AI prototype"
+git branch -M main
+git remote add origin https://github.com/USERNAME/REPO-NAME.git
+git remote -v</code></pre>
+            <p class="note"><code>git remote -v</code>를 입력했을 때 GitHub 주소가 보이면 연결된 것입니다. 이미 remote가 있다면 <code>git remote set-url origin [새 GitHub URL]</code>을 사용합니다.</p>
+          </article>
+
+          <article>
+            <span class="guide-step">04</span>
+            <h3>AI 프로토타입 코드 push</h3>
+            <p>Push는 내 컴퓨터에 저장한 버전을 GitHub repo로 업로드하는 동작입니다. 이 명령어도 터미널에 입력합니다.</p>
+            <pre><code>git push -u origin main</code></pre>
+            <p>다음부터 업데이트할 때는 이 흐름만 반복하면 됩니다.</p>
+            <pre><code>git status
+git add .
+git commit -m "Update prototype"
+git push origin main</code></pre>
+          </article>
+
+          <article class="wide">
+            <span class="guide-step">05</span>
+            <h3>명령어가 하는 일</h3>
+            <ul>
+              <li><code>pwd</code>는 지금 터미널이 열려 있는 폴더 위치를 보여줍니다.</li>
+              <li><code>git init</code>은 현재 폴더를 Git이 추적할 수 있는 프로젝트로 만듭니다.</li>
+              <li><code>git status</code>는 현재 변경된 파일을 확인하는 명령어입니다.</li>
+              <li><code>git add .</code>는 변경된 파일을 커밋 준비 상태로 올립니다.</li>
+              <li><code>git commit</code>은 현재 버전을 저장하는 스냅샷입니다.</li>
+              <li><code>git remote add origin ...</code>은 내 컴퓨터 폴더와 GitHub repo를 연결합니다.</li>
+              <li><code>git push</code>는 저장한 버전을 GitHub에 업로드합니다.</li>
+            </ul>
+          </article>
+
+          <article class="wide">
+            <span class="guide-step">06</span>
+            <h3>디자이너를 위한 체크포인트</h3>
+            <ul>
+              <li>명령어는 GitHub 웹사이트가 아니라 터미널에 입력합니다.</li>
+              <li>터미널은 프로토타입 프로젝트 폴더 안에서 열려 있어야 합니다.</li>
+              <li>API key, 비밀번호, 토큰, 개인 정보가 들어간 파일은 절대 push하지 않습니다.</li>
+              <li>Codex나 Cursor에 요청할 때는 “변경사항 확인 후 commit하고 GitHub에 push해줘”처럼 말하면 됩니다.</li>
+            </ul>
+          </article>
+
+          <article class="wide">
+            <span class="guide-step">07</span>
+            <h3>AI에게 요청하는 예시 프롬프트</h3>
+            <pre><code>이 AI 프로토타입 프로젝트를 GitHub에 올릴 수 있게 준비해줘.
+
+GitHub repo URL:
+[여기에 GitHub repo URL 붙여넣기]
+
+해야 할 일:
+- 터미널이 프로젝트 root folder에 있는지 확인해줘.
+- 현재 변경사항을 확인해줘.
+- 민감한 정보가 포함된 파일이 없는지 확인해줘.
+- 필요한 파일만 git add 해줘.
+- 커밋 메시지는 "Initial AI prototype"으로 해줘.
+- origin remote를 연결해줘.
+- main 브랜치로 push해줘.</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <section id="tips" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">11</p>
+          <h2>유용한 팁</h2>
+          <p>AI 프로토타입의 품질을 높이는 작은 습관들입니다.</p>
+        </div>
+
+        <div class="tips-panel">
+          <ul>
+            <li>프로토타입을 크게 확장하기 전에 하나의 핵심 사용자 여정부터 만드세요.</li>
+            <li>Figma 링크, 스크린샷, 토큰, 제품 메모를 함께 전달하세요.</li>
+            <li>한 번에 전체를 다시 만들게 하기보다 작은 단위로 수정 요청하세요.</li>
+            <li>UI를 제대로 판단할 수 있도록 현실적인 샘플 데이터를 사용하세요.</li>
+            <li>효과가 좋았던 프롬프트는 <code>notes/prompts.md</code>에 저장하세요.</li>
+            <li>클릭 가능한 부분, 정적인 부분, 가짜 데이터, 미완성 영역, 의도적으로 단순화한 부분을 기록하세요.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>프로덕트 디자이너를 위한 AI 프로토타이핑 가이드</p>
+      <a href="#top">맨 위로</a>
+    </footer>
+
+    <script>
+      const header = document.querySelector(".site-header");
+
+      function scrollToSection(hash) {
+        const target = document.querySelector(hash);
+        if (!target) return;
+
+        const headerHeight = header ? header.offsetHeight : 0;
+        const targetTop = target.offsetTop - headerHeight - 24;
+
+        window.scrollTo(0, Math.max(targetTop, 0));
+      }
+
+      document.querySelectorAll('a[href^="#"]').forEach((link) => {
+        link.addEventListener("click", (event) => {
+          const hash = link.getAttribute("href");
+          if (!hash || hash === "#") return;
+
+          event.preventDefault();
+          history.pushState(null, "", hash);
+          scrollToSection(hash);
+        });
+      });
+
+      window.addEventListener("load", () => {
+        if (window.location.hash) {
+          requestAnimationFrame(() => scrollToSection(window.location.hash));
+        }
+      });
+    </script>
+  </body>
+</html>
